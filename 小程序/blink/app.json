@@ -1,0 +1,11 @@
+{
+  "pages": [
+    "pages/classic/classic"
+  ],
+  "window": {
+    "navigationBarBackgroundColor":"#000000",
+    "navigationBarTitleText":"Zzhiren",
+    "navigationBarTextStyle":"white",
+    "backgroundColor":"#D80000"
+  }
+}
