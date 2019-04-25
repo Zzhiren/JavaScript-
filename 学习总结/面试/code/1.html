@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>1. position的值， relative和absolute分别是相对于谁进行定位的？</title>
+</head>
+<style>
+  div{
+    border:1px solid black;
+  }
+  /* absolute */
+  .grandFar{
+    position: relative;
+    width: 200px;
+    height: 200px;
+  }
+  .far{
+    position: static;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+  }
+  .sun{
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    top: 20px;
+    left: 10px;
+  }
+  /* fixed */
+  .fixedFar{
+    /* position: relative; */
+    width: 200px;
+    height: 200px;
+  }
+  .fixed1{
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    top: 20px;
+    right: 20px;
+  }
+  .fixed2{
+    position: fixed;
+    width: 100px;
+    height: 100px;
+  }
+  .fixed3{
+    position: fixed;
+    width: 100px;
+    height: 100px;
+  }
+</style>
+<body>
+  <h2>absolute</h2>
+  <p>生成绝对定位元素，相对于**static/initial**定位以外的第一个父元素进行定位。元素的位置通过 "left", "top", "right" 以及 "bottom" 属性进行规定。</p>
+  <div class="grandFar"> 
+    <div class="far">
+      <div class="sun">
+      </div>
+    </div>
+  </div>
+  <h2>fixed</h2>
+  <div class="fixed3">
+      fixed3
+  </div>
+  <br>
+  <br>
+  <br>
+  <div class="fixedFar">
+    box
+    <div class="fixed1">
+      fixed1
+    </div>
+  </div>
+  <div class="fixed2">
+    fixed2
+  </div>
+</body>
+</html>
