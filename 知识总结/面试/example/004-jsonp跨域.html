@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./index.css">
+  <!-- <script type="text/javascript" src="https://m.douban.com/rexxar/api/v2/muzzy/columns/10018/items?start=0&count=3&callback=handleResponse"></script> -->
+  <title>jsonp跨域</title>
+</head>
+<style>
+
+</style>
+
+<body>
+  <button onclick="jsonpRequest()">jsonp请求</button>
+  <button onclick="useJsonp()">封装后的jsonp请求</button>
+  <script type="text/javascript">
+    function jsonpRequest() {
+      console.log('click')
+      var url = 'https://m.douban.com/rexxar/api/v2/muzzy/columns/10018/items?start=0&count=3' +
+        '&callback=handleResponse'
+      createJs(url);
+    }
+
+     function createJs(sUrl) {
+      console.log(sUrl)
+      var oScript = document.createElement('script');
+      oScript.type = 'text/javascript';
+      oScript.src = sUrl;
+      document.getElementsByTagName('head')[0].appendChild(oScript);
+    }
+
+    function handleResponse(response) {
+      console.log('callback')
+      console.log(response)
+    }
+
+    /**
+     * @desc 封装后的jsonp
+     * @param {String} url 请求地址
+     * @param {Object} data 请求参数
+     * @param {Function} success 回调函数
+    */
+    function jsonp(obj){
+      // 回调函数名称
+      var callbackName = 'jsonp_callback_' + Date.now() + Math.random().toString().substr(2, 5);
+      // 拼接url
+      var arr = [];
+      var params = '';
+      for(var key in obj.data){
+        arr.push(key+ '=' + obj.data[key])
+      }
+      params = arr.join('&');
+      var url = obj.url + '?' + params + '&callback=' + callbackName;
+
+      // 创建script标签
+      var script = document.createElement('script');
+      script.type='text/javascript';
+      script.src=url;
+
+      // 将script标签加入head标签中
+      document.getElementsByTagName('head')[0].appendChild(script);
+
+      // 将回掉函数挂载到window上，获取完数据在删除
+      window[callbackName] = function(res){
+        obj.success(res);
+        // 使用完在删除script标签
+        delete window.callbackName;
+        document.getElementsByTagName('head')[0].removeChild(script)
+      }
+    }
+
+    function useJsonp(){
+      jsonp({
+        url:'https://m.douban.com/rexxar/api/v2/muzzy/columns/10018/items',
+        data:{
+          start:0,
+          count:3
+        },
+        success:function(res){
+          console.log(res)
+        }
+      })
+    }
+  </script>
+</body>
+
+
+</html>
