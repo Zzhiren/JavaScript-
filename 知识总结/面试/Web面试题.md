@@ -75,7 +75,55 @@ function jsonp(obj){
 }
 ```
 
+## **封装Ajax**
+[004-封装Ajax](./example/004-封装Ajax.html)
+
+## **常见web安全及防护原理**
+>SQL注入原理
+
+通过把sql命令插入到Web表单或请求参数或url地址，最终达到欺骗服务器执行恶意的sql命令。
+
+如何避免：
+* 不要相信用户的输入，对用户的输入做校验，包括长度，类型等。
+* 使用参数化的sql，通过判断参数来组装sql。
+* 不要使用管理员权限来连接数据库，为每个应用使用单独权限和有限的数据库连接。
+* 对机密和敏感信息加密处理。
+
 ## **说说TCP传输的三次握手四次挥手策略**
+
+## **对前端模块化的认识**（待完善）
+>AMD是`RequireJS`在推广过程中对模块定义的规范化产出。
+
+>CMD是`SeaJS`在推广过程中对模块定义的规范化产出。
+
+`AMD`是提前执行，`CMD`是延迟执行。
+
+## **快速排序**
+快速排序的原理
+
+1. 在数据集中，找到中间值。 
+2. 将小于中间值的数据放在左边数组，大于中间值的放在右边数组。
+3. 通过递归将左边数组和右边数组执行`1 2`步。
+```js
+function quickSort(arr){
+  if(arr.length <= 1){
+    return arr;
+  }
+  // 找到中间值，如果是浮点数，则向下取整
+  var numValue = Math.floor(arr.length/2);
+  var left = [];
+  var right = [];
+  for(var i=0; i < arr.length; i++){
+    if(arr[i] < numValue){
+      left.push(arr[i]);
+    }else{
+      right.push(arr[i]);
+    }
+  }
+  
+  return [...quickSort(left),numValue,...quickSort(right)]
+}
+```
 
 
 

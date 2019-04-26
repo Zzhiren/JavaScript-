@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./index.css">
+  <title>快速排序</title>
+</head>
+<style>
+
+</style>
+
+<body>
+  <h2>快速排序</h2>
+  <p>[100,200,300,88,99,1000,288,422,900]</p>
+  <button onclick="start()">开始快排</button>
+  <p id="result"></p>
+  <script type="text/javascript">
+    function quickSort(arr) {
+      if (arr.length <= 1) {
+        return arr;
+      }
+      // 找到中间值，如果是浮点数，则向下取整
+      var index = Math.floor(arr.length / 2);
+      console.log(index)
+      console.log(arr)
+      var numValue = arr[index];
+      // var numValue = arr.splice(index,1);//找到中间数的值
+      var left = [];
+      var right = [];
+      for (var i = 0; i < arr.length; i++) {
+        if (arr[i] < numValue) {
+          left.push(arr[i]);
+        } else {
+          right.push(arr[i]);
+        }
+      }
+      // return quickSort(left).concat(numValue,quickSort(right));//递归不断重复比较
+      return [...quickSort(left), numValue, ...quickSort(right)]
+    };
+
+    function start(){
+      var arr = [100,200,300,88,99,1000,288,422,900];
+      var result = quickSort(arr);
+      document.getElementById('result').innerText=result;
+    };
+  </script>
+</body>
+
+
+</html>

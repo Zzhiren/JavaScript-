@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./index.css">
+  <title>封装Ajax</title>
+</head>
+<style>
+
+</style>
+
+<body>
+  <h2>封装Ajax请求（浏览器要开启跨域模式）</h2>
+  <button onclick="get()">get请求</button>
+  <button onclick="post()">post请求</button>
+  <script type="text/javascript">
+    var optionsGet = {
+      url: 'https://m.douban.com/rexxar/api/v2/muzzy/columns/10018/items',
+      method:'get',
+      timeout:1,
+      data: {
+        start: 0,
+        count: 3
+      }
+    }
+
+    var optionsPost = {
+      url: 'https://m.douban.com/rexxar/api/v2/muzzy/columns/10018/items',
+      method:'post',
+      timeout:5000,
+      data: {
+        start: 0,
+        count: 3
+      }
+    }
+    /**
+     * @desc 封装ajax
+     * @param {Object} options 参数
+     * @param {Function} success 成功回调函数
+     */
+    function ajax(options, success) {
+      var url = options.url || '';
+      var params = '';
+      var arr = [];
+      var ajax;
+      if (window.XMLHttpRequest) {
+        ajax = new XMLHttpRequest();
+      } else if (window.ActiveXObject) {
+        ajax = new ActiveXObject('Microsoft.XMLHTTP');
+      }
+
+      for (var key in options.data) {
+          arr.push(key + '=' + options.data[key])
+      }
+      
+      var str = arr.join('&');
+      ajax.onreadystatechange = stateChange;
+      if (options.method == 'get') {
+        params = arr.join('&');
+        url = url + '?' + str + '&t=' + Date.now();
+        ajax.open('get', url, true);
+        ajax.send()
+      } else if (options.method == 'post') {
+        ajax.open('post', url, true);
+        // ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+        ajax.send(JSON.stringify(options.data))
+      }
+
+      // 监听请求状态
+      function stateChange() {
+        if (ajax.readyState == 4 && ajax.status == 200) {
+          success(ajax.responseText)
+        }
+      };
+
+      if(options.timeout){
+        var timer = setTimeout(() => {
+          ajax.abort(); //终止ajax
+          alert('超时了');
+        }, options.timeout);
+      }
+    };
+
+    function get() {
+      ajax(optionsGet, function (res) {
+        console.log(res);
+        alert(res)
+      })
+    };
+
+    function post(){
+      ajax(optionsPost, function(res){
+        console.log(res);
+        alert(res)
+      })
+    }
+  </script>
+</body>
+
+
+</html>
