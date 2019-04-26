@@ -105,24 +105,34 @@ function jsonp(obj){
 2. 将小于中间值的数据放在左边数组，大于中间值的放在右边数组。
 3. 通过递归将左边数组和右边数组执行`1 2`步。
 ```js
-function quickSort(arr){
-  if(arr.length <= 1){
+function quickSort(arr) {
+  if (arr.length <= 1) {
     return arr;
   }
   // 找到中间值，如果是浮点数，则向下取整
-  var numValue = Math.floor(arr.length/2);
+  var index = Math.floor(arr.length / 2);
+  console.log(index)
+  console.log(arr)
+  var numValue = arr[index];
+  // var numValue = arr.splice(index,1);//找到中间数的值
   var left = [];
   var right = [];
-  for(var i=0; i < arr.length; i++){
-    if(arr[i] < numValue){
+  for (var i = 0; i < arr.length; i++) {
+    if (arr[i] < numValue) {
       left.push(arr[i]);
-    }else{
+    } else {
       right.push(arr[i]);
     }
   }
-  
-  return [...quickSort(left),numValue,...quickSort(right)]
-}
+  // return quickSort(left).concat(numValue,quickSort(right));//递归不断重复比较
+  return [...quickSort(left), numValue, ...quickSort(right)]
+};
+
+function start(){
+  var arr = [100,200,300,88,99,1000,288,422,900];
+  var result = quickSort(arr);
+  document.getElementById('result').innerText=result;
+};
 ```
 
 
