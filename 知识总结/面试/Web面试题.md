@@ -113,8 +113,7 @@ function quickSort(arr) {
   var index = Math.floor(arr.length / 2);
   console.log(index)
   console.log(arr)
-  var numValue = arr[index];
-  // var numValue = arr.splice(index,1);//找到中间数的值
+  var numValue = arr.splice(index,1);//找到中间数的值
   var left = [];
   var right = [];
   for (var i = 0; i < arr.length; i++) {
