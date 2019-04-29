@@ -35,7 +35,7 @@
 
 [示例代码](./example/004-jsonp跨域.html)
 
-**原理：**浏览器拥有一个同源策略，同源策略就是发送请求的ip+port与服务端一致。而script标签不受该策略限制。所有我们通过包装一个script标签的方法来获取数据。
+**原理**：浏览器拥有一个同源策略，同源策略就是发送请求的ip+port与服务端一致。而script标签不受该策略限制。所有我们通过包装一个script标签的方法来获取数据。
 
 请求是可以，但是获取的数据该怎么拿到呢，这里我们就需要在url后一个callback参数具体如下：`&callback=funName`；后端会根据将数据包装成一个json对象通过funName(json)传回，具体后台怎么实现，我目前也没有弄明白，根据查询的资料默认情况下写成 `callback=funName`这种key=value的形式，其中的key:`callback`也可以后端自己定义，如定义成`returnJSON`，那此时我们的写法应该是 `returnJSON=funName`，funName可以由前端自己定义。
 ```js
@@ -134,7 +134,39 @@ function start(){
 };
 ```
 
+## **JS闭包**
+### 闭包的特性
+* 函数内部可以应用外部的参数和变量。
+* 参数和变量不会被垃圾回收机制回收。
+* 设置私有方法和变量。
+* 函数嵌套函数。
+  
+[006-闭包](./example/006-闭包.html)
+```js
+// 嵌套函数的闭包
+function close(){
+  var a = 0;
+  console.log(`close${a}`);
+  return function(){
+    a++;
+    console.log(a)
+  }
+};
 
+let a = close();
+let b = close();
+// 按下列顺序执行
+a() // 输出：1
+a() // 输出：2
+a() // 输出：3
+b() // 输出：1
+b() // 输出：2
+
+```
+>面试题：获取页面所有li标签，给所有li标签添加点击事件，每个li标签打印出自己的index[示例代码](006-闭包.html)
+```js
+
+```
 
 
 
