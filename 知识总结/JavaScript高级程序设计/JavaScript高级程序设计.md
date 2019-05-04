@@ -232,8 +232,50 @@ if(a + b == 0.3){
 * 最小值：保存在Number.MIX_VALUE
 
 #### 3. NaN
+>`NaN`表示非数值，即（Not a Number），这个数值表示一个本来应该返回数值的操作未返回数值的情况
+```js
+// 数值除以字符串结果肯定不为数值
+console.log(999/'test'); // NaN
+```
 
+#### 4. 数值转换
+* **Number()**
+  * `Boolean`转换成`0/1`
+  * `null`返回`0`
+  * `undefined`返回`NaN`
+  * 字符串
+    * 只包含数字（包括正负号），转为十进制数，前面的0被忽略
+    * 浮点数转换为浮点数，前面的0被忽略
+    * 字符串中包含有效的`十六进制格式`，则会转换为相等的`十进制数`
+    * 如果字符中包含除上述格式之外的字符，转为NaN
+    * 转换对象
+  * **`总结：`**
+    * 只要字符串中有非数字，全部转换为NaN
+    * 其他进制全部转换为十进制数
+    * 数值正负转换后依然保留正负
+* **parseInt()**
+  * 从字符串第一个字符开始解析，遇到非字符串解析停止，返回非字符串之前的数值
+  * 能够识别其他进制，将其他进制转换为十进制数
+    * `空字符串`返回`NaN`，`Number()`则返回`0`
+* **parseFloat()**
+  * 只转换十进制，十六进制将转换为0
+  * 如果字符串包含的是一个整数格式，则会返回整数
+  * 其他规则与parseInt()类型
 
+```js
+// Number()，
+let num1 = Number('Hello JS'); // NaN
+let num2 = Number(''); // 0
+let num3 = Number('00011'); // 11
+let num4 = Number(true); // 1
+
+// parseInt()
+let num1 = parseInt('123blue'); // 123
+let num2 = parseInt(''); // NaN
+let num3 = parseInt('-999'); // -999
+let num4 = parseInt('0xf'); // 15
+let num5 = parseInt('070', 8); // 56
+```
 
 
 
