@@ -277,8 +277,67 @@ let num4 = parseInt('0xf'); // 15
 let num5 = parseInt('070', 8); // 56
 ```
 
+#### 3.4.6 String类型
 
+#### 1. 字符字面量
+`转义字符`
+>这些字符字面量可以出现在字符串中的任意位置，而且也被当作一个字符来解析
 
+| 字面量 | 含义 |
+| - | - |
+| \n | 换行
+| \t | 制表
+| \b | 空格
+| \r | 回车
+| \f | 走纸换页
+| \' | 单引号
+| \" | 双引号
+
+#### 2. 转换为字符串
+`注意以下几点`
+```js
+let num1 = null;
+num1.toString(); // 报错，没有toString()方法
+String(num1); // 返回字符串'null'
+
+let num2;
+num2.toString(); // 报错，undefined的值没有toString()方法
+String(num2); // 返回字符串 'undefined'
+```
+
+#### 3.4.7 Object类型
+创建一个对象
+```js
+let obj = new Object(); // 不推荐写法
+let obj = new Object;   // 不推荐写法
+
+let obj = {};   // 推荐写法
+```
+
+>所有的对象都源于`Object`对象
+
+`Object`的每个实例都具有下列属性和方法
+* `Constructor`（构造函数）: 保存用户创建当前对象的函数，上面的例子构造函数就是`Object()`
+* `hasOwnProperty(propertyName)`: 检查当前对象中是否有某个属性（`不检查原型链`）
+* `isPrototypeOf(Object)`: 检查传入的对象是否存在于另一个对象的原型链中
+* `propertyIsEnumerable(propertyName)`: 检查给定的属性是否能够使用`for-in`语句来枚举
+* `toLocaleString()`: 返回对象的字符串表示，该字符串与执行环境的地区对应
+* `toString()`: 返回对象的字符串表示
+* `valueOf()`: 返回对象的字符串、数值或布尔值表示
+
+```js
+// isPrototypeOf(Object)
+function Person(){
+  this.type = 'person' 
+}
+let person = new Person();
+let man = new Person();
+console.log(man.type);
+
+// man的原型对象存在于Person对象的原型链中
+console.log(Person.prototype.isPrototypeOf(man)); // true
+
+```
 
 
 
