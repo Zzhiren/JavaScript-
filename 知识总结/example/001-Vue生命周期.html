@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title></title>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/vue/2.1.3/vue.js"></script>
+</head>
+
+<body>
+
+  <div id="app">
+    <p>{{ message }}</p>
+  </div>
+
+  <script type="text/javascript">
+    var app = new Vue({
+      el: '#app',
+      data: {
+        message: "Vue生命周期"
+      },
+      beforeCreate() {
+        console.group('beforeCreate 创建前状态===============》');
+        console.log("%c%s",'color:red', `data:  ${this.$data}`);
+        console.log(this.$el);
+        console.log("%c%s", "color:red","message: " + this.message);
+      },
+
+      created(){
+        console.group('created 创建结束状态===============》');
+        console.log("%c%s",'color:blue', `data:  ${this.$data}`);
+        console.log(this.$el);
+        console.log("%c%s",'color:blue', `message:  ${this.message}`);
+      },
+
+      beforeMount() {
+        console.group('beforeMount 挂载前状态===============》');
+        console.log("%c%s",'color:blue', `data:  ${this.$data}`);
+        console.log(this.$el);
+        console.log("%c%s",'color:blue', `message:  ${this.message}`);
+      },
+
+      mounted() {
+        console.group('mounted 挂载结束状态===============》');
+        console.log("%c%s",'color:blue', `data:  ${this.$data}`);
+        console.log(this.$el);
+        console.log("%c%s",'color:blue', `message:  ${this.message}`);
+      },
+
+      beforeUpdate() {
+        console.group('beforeUpdate 更新前状态===============》');
+        console.log("%c%s",'color:blue', `data:  ${this.$data}`);
+        console.log(this.$el);
+        console.log("%c%s",'color:blue', `message:  ${this.message}`);
+      },
+
+      updated() {
+        console.group('updated 更新结束状态===============》');
+        console.log("%c%s",'color:blue', `data:  ${this.$data}`);
+        console.log(this.$el);
+        console.log("%c%s",'color:blue', `message:  ${this.message}`);
+      },
+
+      beforeDestroy() {
+        console.group('beforeDestroy 销毁前状态===============》');
+        console.log("%c%s",'color:blue', `data:  ${this.$data}`);
+        console.log(this.$el);
+        console.log("%c%s",'color:blue', `message:  ${this.message}`);
+        console.log(this.data)
+        this.message = 'beforeDestroy'
+      },
+
+      destroyed() {
+        console.group('destroyed 销毁结束状态===============》');
+        console.log("%c%s",'color:blue', `data:  ${this.$data}`);
+        console.log(this.$el);
+        console.log("%c%s",'color:blue', `message:  ${this.message}`);
+        console.log(this)
+        this.message = 'destroyed'
+      },
+    })
+  </script>
+</body>
+
+</html>

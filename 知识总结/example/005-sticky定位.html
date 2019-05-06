@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./index.css">
+  <title>sticky</title>
+</head>
+<style>
+  .box{
+    position: relative;
+    padding-bottom:2000px;
+  }
+  .sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top:0;
+    width: 100px;
+    height: 100px;
+  }
+  .sticky2{
+    position: -webkit-sticky;
+    position: sticky;
+    top:0;
+    left: 300px;
+    width: 100px;
+    height: 100px;
+  }
+</style>
+
+<body>
+  <div class="sticky">粘性布局</div>
+  <div class="box"">
+    <div class="sticky2">粘性布局</div>
+    <p>滚动我</p>
+    <p>来回滚动我</p>
+    <p>滚动我</p>
+    <p>来回滚动我</p>
+    <p>滚动我</p>
+    <p>来回滚动我</p>
+  </div>
+</body>
+
+</html>

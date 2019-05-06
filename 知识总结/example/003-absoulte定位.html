@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./index.css">
+  <title>1. position的值， relative和absolute分别是相对于谁进行定位的？</title>
+</head>
+<style>
+  div {
+    border: 1px solid black;
+  }
+  /* absolute */
+  .grandFar {
+    position: relative;
+    width: 200px;
+    height: 200px;
+  }
+  .far {
+    position: static;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+  }
+  .sun {
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    top: 20px;
+    left: 10px;
+  }
+  .ab01{
+    position: absolute;
+    top:400px;
+    right: 200px;
+    width: 200px;
+    height: 200px;
+  }
+</style>
+
+<body>
+  <h2>absolute</h2>
+  <p>生成绝对定位元素，相对于**static/initial**定位以外的第一个父元素进行定位。元素的位置通过 "left", "top", "right" 以及 "bottom" 属性进行规定。</p>
+  <div class="grandFar">
+    <div class="far">
+      <div class="sun">
+      </div>
+    </div>
+  </div>
+  <div class="ab01">
+
+  </div>
+
+
+
+</body>
+
+</html>
