@@ -13,7 +13,7 @@
 ```
   
 ## **如何解决跨域问题**
->JSONP:
+>JSONP:通过script标签来实现跨域请求
 
 [示例代码](./example/004-jsonp跨域.html)
 

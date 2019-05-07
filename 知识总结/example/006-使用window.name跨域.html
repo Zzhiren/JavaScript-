@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>006-使用window.name跨域</title>
+  <style>
+    /* #iframe{
+      top: -9999px;
+      position: absolute;
+    } */
+  </style>
+</head>
+<body>
+  <!-- <iframe id="iframe" onload="load()" src="./007-window.name的iframe页面.html" frameborder="0"></iframe> -->
+  <div>
+    <h2>006-使用window.name跨域</h2>
+    <button onclick="getData()">获取iframe数据</button>
+  </div>
+  <script>
+    window.onload = function (){
+      window.name = '主页面'
+      console.log(window.name);
+    }
+
+    // function load() {
+    //   var iframe = document.getElementById('iframe');
+    //     var window = iframe.contentWindow;
+    //     alert(window.name)
+    // };
+
+    function getData(){
+      let url = './007-window.name的iframe页面.html';
+      getIframeData(url, name =>{
+        console.log(name)
+      })
+    }
+
+    function getIframeData(url, success){
+      let iframe = document.createElement('iframe');
+      iframe.src=url;
+      iframe.frameBorder = 0;
+      iframe.id = 'iframe';
+      // 让iframe标签内容不影响当前页面
+      iframe.style.position = 'absoulte';
+      iframe.style.top = '-99999px';
+      iframe.style.width = 0;
+      iframe.style.height = 0;
+      iframe.onload = load;
+      document.body.appendChild(iframe);
+
+      function load (){
+        let window = iframe.contentWindow;
+        let value = window.name;
+        document.body.removeChild(iframe); // 取完数据后删除该标签
+        success(value)
+      }
+    }
+  </script>
+</body>
+</html>
