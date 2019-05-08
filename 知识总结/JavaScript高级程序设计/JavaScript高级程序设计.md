@@ -1,3 +1,32 @@
+<!-- TOC -->
+
+- [《JavaScript高级程序设计》学习笔记](#javascript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0)
+  - [第1章 JavaScript简介](#%E7%AC%AC1%E7%AB%A0-%08javascript%E7%AE%80%E4%BB%8B)
+  - [第2章 在HTML中使用JavaScript](#%E7%AC%AC2%E7%AB%A0-%E5%9C%A8html%E4%B8%AD%E4%BD%BF%E7%94%A8javascript)
+  - [第3章 基本概念](#%E7%AC%AC3%E7%AB%A0-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5)
+    - [3.4 数据类型](#34-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B)
+      - [3.4.1 tyiepof操作符（注意：typeof不是函数）](#341-tyiepof%E6%93%8D%E4%BD%9C%E7%AC%A6%E6%B3%A8%E6%84%8Ftypeof%E4%B8%8D%E6%98%AF%E5%87%BD%E6%95%B0)
+      - [3.4.2 Undifined类型](#342-undifined%E7%B1%BB%E5%9E%8B)
+      - [3.4.3 Null类型](#343-null%E7%B1%BB%E5%9E%8B)
+      - [3.4.4 Boolean类型](#344-boolean%E7%B1%BB%E5%9E%8B)
+      - [3.4.5 Number类型](#345-number%E7%B1%BB%E5%9E%8B)
+        - [1. 浮点数值](#1-%E6%B5%AE%E7%82%B9%E6%95%B0%E5%80%BC)
+        - [2. 数值范围](#2-%E6%95%B0%E5%80%BC%E8%8C%83%E5%9B%B4)
+        - [3. NaN](#3-nan)
+        - [4. 数值转换](#4-%E6%95%B0%E5%80%BC%E8%BD%AC%E6%8D%A2)
+      - [3.4.6 String类型](#346-string%E7%B1%BB%E5%9E%8B)
+        - [1. 字符字面量](#1-%E5%AD%97%E7%AC%A6%E5%AD%97%E9%9D%A2%E9%87%8F)
+        - [2. 转换为字符串](#2-%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%AD%97%E7%AC%A6%E4%B8%B2)
+        - [3.4.7 Object类型](#347-object%E7%B1%BB%E5%9E%8B)
+  - [第4章 变量、作用域和内存问题](#%E7%AC%AC4%E7%AB%A0-%E5%8F%98%E9%87%8F%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%92%8C%E5%86%85%E5%AD%98%E9%97%AE%E9%A2%98)
+    - [4.1 基本类型和引用类型的值](#41-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%80%BC)
+      - [4.1.1 动态的属性](#411-%E5%8A%A8%E6%80%81%E7%9A%84%E5%B1%9E%E6%80%A7)
+      - [4.1.2 复制变量值](#412-%E5%A4%8D%E5%88%B6%E5%8F%98%E9%87%8F%E5%80%BC)
+
+<!-- /TOC -->
+
+
+
 # 《JavaScript高级程序设计》学习笔记
 ## 第1章 JavaScript简介
 
@@ -198,7 +227,7 @@ test();
 #### 3.4.5 Number类型
 `注意：在进行算术计算时，所有八进制和十六进制数都将转换成十进制数进行计算。`
 
-#### 1. 浮点数值
+##### 1. 浮点数值
 * 浮点数值需要的内存空间为整数值的两倍
 * ECMAScript会将一些浮点数保存为整数值来节省内存空间
   * `1.` 解析为 `1`
@@ -213,18 +242,18 @@ if(a + b == 0.3){
 }
 ```
 
-#### 2. 数值范围
+##### 2. 数值范围
 * 最大值：保存在Number.MAX_VALUE
 * 最小值：保存在Number.MIX_VALUE
 
-#### 3. NaN
+##### 3. NaN
 >`NaN`表示非数值，即（Not a Number），这个数值表示一个本来应该返回数值的操作未返回数值的情况
 ```js
 // 数值除以字符串结果肯定不为数值
 console.log(999/'test'); // NaN
 ```
 
-#### 4. 数值转换
+##### 4. 数值转换
 * **Number()**
   * `Boolean` 转换成 `0/1`
   * `null` 返回 `0`
@@ -267,7 +296,7 @@ let num2 = parseInt(''); // NaN
 
 #### 3.4.6 String类型
 
-#### 1. 字符字面量
+##### 1. 字符字面量
 `转义字符`
 >这些字符字面量可以出现在字符串中的任意位置，而且也被当作一个字符来解析
 
@@ -281,7 +310,7 @@ let num2 = parseInt(''); // NaN
 | \' | 单引号
 | \" | 双引号
 
-#### 2. 转换为字符串
+##### 2. 转换为字符串
 `注意以下几点`
 ```js
 let num1 = null;
@@ -293,7 +322,7 @@ num2.toString(); // 报错，undefined的值没有toString()方法
 String(num2); // 返回字符串 'undefined'
 ```
 
-#### 3.4.7 Object类型
+##### 3.4.7 Object类型
 创建一个对象
 ```js
 let obj = new Object(); // 不推荐写法
