@@ -30,6 +30,9 @@
 // 声明了变量，但未初始化
 let message;
 let str = undefined;
+typeof messge; // undefined
+typeof str; // undefined
+
 console.log(message == undefined); // true
 console.log(str == undefined); // true
 
@@ -57,14 +60,15 @@ if (car != null) {
   // do something
 }
 ```
->其实`undefined`是派生自`null`，所以它们的想等性检(==)测结果为`true`，但是如果使用严格等于(===)，因为`typeof null`返回`object`，`typeof undefined`返回`undefined`，二者数据类型不一致，所以使用严格等于判断时返回`false`
+>其实 `undefined` 是派生自 `null`，所以它们的想等性(==)检测结果为`true`，但是如果使用严格等于(===)，因为 `typeof null` 返回 `object` ，`typeof undefined` 返回   `undefined`，二者数据类型不一致，所以使用严格等于判断时返回 `false`
 ```js
 console.log(undefined == null); // true
 
 console.log(undefined === null); // false
 ```
 #### 3.4.4 Boolean类型
->`Boolean`有两个字面值：`true/false`，虽然Boolean只有两个值，但ECMAScript中的所有类型都有与这两个Boolean值等价的值，可以调用`Boolean()`进行转换
+>`Boolean` 有两个字面值：`true/false`，虽然Boolean只有两个值，但ECMAScript中的所有类型都有与这两个Boolean值等价的值，可以调用`Boolean()`进行转换
+
 ```js
 let message = 'Hello JS';
 let messageBoolean = Boolean(message);
@@ -110,52 +114,45 @@ function test(){
   let num3 = 999;
 
   if(!0){
-    console.log(`0 -> false`);
+    // do something;
   };
 
-  // 0 == false 返回false
-  if(0 == false){
-    console.log('0 == false');
+  // 0 == false 判断返回false
+  if(0 != false){
+    // do something
   };
 
   if(1){
-    console.log(`1 -> true`);
+    // do something
   };
 
   // 1 == true 返回true
   if(1 == true){
-    console.log(`1 == true`);
+    // do something
   };
 
   if(999){
-    console.log(`999 -> true`);
+    // do something
   };
 
   // 999 == true 返回false
-  if(999 == true){
-    console.log(`999 == true`);
-  }else {
-    console.log(`999 != true`);
+  if(999 != true){
+    // do something
   }
 
+  // 正无穷，负无穷
   if(Infinity){
-    console.log('正无穷相当于true')
+    // do something
   }
   if(-Infinity){
-    console.log('负无穷相当于true')
+    // do something
   }
 };
 
 test();
-// num1 -> false
-// num1 == false
-// num2 -> true
-// num2 == true
-// num3 -> true
-// num3 != true
 ```
 
->`Object`都反悔`true`，只有控对象`null`返回`false`
+>`Object` 都返回 `true` ，只有空对象 `null` 返回 `false`
 ```js
 function test(){
   let obj = {};
@@ -163,39 +160,28 @@ function test(){
     name: 'Zzhiren'
   };
   let empty = null;
-  if(obj){
-    console.log('obj is true');
-  }else{
-    console.log('obj is false');
+  if(obj){ // true
+    // do something
   }
 
-  if(data){
-    console.log('data is true');
-  }else{
-    console.log('data is false');
+  if(data){ // true
+    // do something
   }
 
-  if(empty){
-    console.log('empty is true');
-  }else{
-    console.log('empty is false');
+  if(!empty){ // true
+    // do something
   }
 }
 
 test();
-// obj is true
-// data is true
-// empty is false
 ```
 
->`Undefined`返回`false`，`undefined`不同通过`==`与`true/false`进行判断
+>`Undefined` 返回 `false`，`undefined` 不同通过 `==` 与 `true/false` 进行判断
 ```js
 function test(){
   let value;
-  if(value){
-    console.log('value is true');
-  }else {
-    console.log('value is false');
+  if(!value){ // true
+    // do something
   }
 
   if(value == true){
@@ -210,7 +196,7 @@ test();
 ```
 
 #### 3.4.5 Number类型
-`注意：在进算术计算时，所有八进制和十六进制数都将转换成十进制数进行计算。`
+`注意：在进行算术计算时，所有八进制和十六进制数都将转换成十进制数进行计算。`
 
 #### 1. 浮点数值
 * 浮点数值需要的内存空间为整数值的两倍
@@ -240,17 +226,17 @@ console.log(999/'test'); // NaN
 
 #### 4. 数值转换
 * **Number()**
-  * `Boolean`转换成`0/1`
-  * `null`返回`0`
-  * `undefined`返回`NaN`
+  * `Boolean` 转换成 `0/1`
+  * `null` 返回 `0`
+  * `undefined` 返回 `NaN`
   * 字符串
     * 只包含数字（包括正负号），转为十进制数，前面的0被忽略
     * 浮点数转换为浮点数，前面的0被忽略
     * 字符串中包含有效的`十六进制格式`，则会转换为相等的`十进制数`
-    * 如果字符中包含除上述格式之外的字符，转为NaN
+    * 如果字符中包含除上述格式之外的字符，转为NaN `举例：'this is a string'`
     * 转换对象
   * **`总结：`**
-    * 只要字符串中有非数字，全部转换为NaN
+    * 只要字符串中有非数字（十六进制格式除外），全部转换为NaN
     * 其他进制全部转换为十进制数
     * 数值正负转换后依然保留正负
 * **parseInt()**
@@ -265,16 +251,18 @@ console.log(999/'test'); // NaN
 ```js
 // Number()，
 let num1 = Number('Hello JS'); // NaN
-let num2 = Number(''); // 0
 let num3 = Number('00011'); // 11
 let num4 = Number(true); // 1
 
 // parseInt()
 let num1 = parseInt('123blue'); // 123
-let num2 = parseInt(''); // NaN
 let num3 = parseInt('-999'); // -999
 let num4 = parseInt('0xf'); // 15
 let num5 = parseInt('070', 8); // 56
+
+// 转换空字符串的区别
+let num2 = Number(''); // 0
+let num2 = parseInt(''); // NaN
 ```
 
 #### 3.4.6 String类型
@@ -318,7 +306,7 @@ let obj = {};   // 推荐写法
 
 `Object`的每个实例都具有下列属性和方法
 * `Constructor`（构造函数）: 保存用户创建当前对象的函数，上面的例子构造函数就是`Object()`
-* `hasOwnProperty(propertyName)`: 检查当前对象中是否有某个属性（`不检查原型链`）
+* `hasOwnProperty(propertyName)`: 检查当前对象中是否有某个属性（`不检查原型链，只检查当前对象的私有属性`）
 * `isPrototypeOf(Object)`: 检查传入的对象是否存在于另一个对象的原型链中
 * `propertyIsEnumerable(propertyName)`: 检查给定的属性是否能够使用`for-in`语句来枚举
 * `toLocaleString()`: 返回对象的字符串表示，该字符串与执行环境的地区对应
@@ -326,6 +314,13 @@ let obj = {};   // 推荐写法
 * `valueOf()`: 返回对象的字符串、数值或布尔值表示
 
 ```js
+// hasOwnProperty(propertyName)
+function Man() {
+  this.sex = 'man'
+}
+Person.prototype.type = 'person'
+Man.hasOwnProperty('type'); // false 不检查原型链上的属性
+
 // isPrototypeOf(Object)
 function Person(){
   this.type = 'person' 
@@ -336,10 +331,22 @@ console.log(man.type);
 
 // man的原型对象存在于Person对象的原型链中
 console.log(Person.prototype.isPrototypeOf(man)); // true
-
 ```
 
+## 第4章 变量、作用域和内存问题
+### 4.1 基本类型和引用类型的值
+* 按值访问，可以直接操作保存在变量中的实际的值
+  * Undefined
+  * Null
+  * Boolean
+  * Number
+  * String
+* 按引用访问
+  * Object
 
+#### 4.1.1 动态的属性
+
+#### 4.1.2 复制变量值
 
 
 

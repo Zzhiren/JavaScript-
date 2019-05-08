@@ -20,3 +20,6 @@
 * `static`: 默认值。没有定位，元素出现在正常的流中
 
 * `sticky`: 生成粘性定位的元素，容器的位置根据正常文档流计算得出。在relative和fixed之间切换。当元素在文档的区域内表现为relative，当元素超出文档区域时为fixed。[示例代码](../example/005-sticky定位.html)
+
+## 45个值得收藏的 CSS 形状
+[网址](https://segmentfault.com/a/1190000018922732)
