@@ -22,6 +22,9 @@
     - [4.1 基本类型和引用类型的值](#41-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%80%BC)
       - [4.1.1 动态的属性](#411-%E5%8A%A8%E6%80%81%E7%9A%84%E5%B1%9E%E6%80%A7)
       - [4.1.2 复制变量值](#412-%E5%A4%8D%E5%88%B6%E5%8F%98%E9%87%8F%E5%80%BC)
+      - [4.1.3 传递参数](#413-%E4%BC%A0%E9%80%92%E5%8F%82%E6%95%B0)
+      - [4.1.4 检测类型](#414-%E6%A3%80%E6%B5%8B%E7%B1%BB%E5%9E%8B)
+    - [4.2 执行环境及作用域](#42-%E6%89%A7%E8%A1%8C%E7%8E%AF%E5%A2%83%E5%8F%8A%E4%BD%9C%E7%94%A8%E5%9F%9F)
 
 <!-- /TOC -->
 
@@ -182,6 +185,7 @@ test();
 ```
 
 >`Object` 都返回 `true` ，只有空对象 `null` 返回 `false`
+
 ```js
 function test(){
   let obj = {};
@@ -206,6 +210,7 @@ test();
 ```
 
 >`Undefined` 返回 `false`，`undefined` 不同通过 `==` 与 `true/false` 进行判断
+
 ```js
 function test(){
   let value;
@@ -235,6 +240,7 @@ test();
 * 浮点数最高精度为17位，浮点数进行算术运算可能会丢失精度
 
 >0.1加0.2不等于0.3，而等于0.30000000000000004，所以不要用浮点数做如下的一些测试
+
 ```js
 // 不要做这样的测试
 if(a + b == 0.3){
@@ -248,6 +254,7 @@ if(a + b == 0.3){
 
 ##### 3. NaN
 >`NaN`表示非数值，即（Not a Number），这个数值表示一个本来应该返回数值的操作未返回数值的情况
+
 ```js
 // 数值除以字符串结果肯定不为数值
 console.log(999/'test'); // NaN
@@ -377,6 +384,119 @@ console.log(Person.prototype.isPrototypeOf(man)); // true
 
 #### 4.1.2 复制变量值
 
+* 基本类型值（两个变量值一样，当时相互独立）
+* 引用类型值（复制的是引用地址值，相互独立，但两个变量的值仍然指向同一个对象）
+
+#### 4.1.3 传递参数
+
+>所有函数的参数都是按值传递的
+
+```js
+// 示例1
+let num = 100;
+let obj = {name:'Alice'}; // obj存储着对象的地址值 0x000000
+
+function test(num,obj){
+  // o 保存着对象的地址 0x000000，与外部的obj指向同一个对象
+  let n = num; // 100
+  let o = obj; // 指向 {name:'Alice'}
+}
+test(num,obj);
+
+// 示例2
+function setName(obj) {
+  obj.name = 'Alice';
+  obj = new Object();
+  obj.name = 'Tom';
+}
+var person = new Object();
+setName(person);
+console.log(person.name); // Alice
+
+```
+>`setName()`的内部`obj`会在函数执行完成后被销毁
+
+#### 4.1.4 检测类型
+* `typeof` 只能检测基本类型，引用类型一律返回 `Object`
+* instanceof 检测引用类型
+
+>`instanceof` 检测的缺点，只要是引用类型的都属于 `Object`
+```js
+// instanceof 的缺点
+let arr = [];
+arr instanceof Object; // true
+arr instanceof Array; // true
+
+function test(){
+
+}
+
+test instanceof Object; // true
+```
+
+### 4.2 执行环境及作用域
+
+概念
+* 函数执行环境
+* 执行环境栈
+* 作用域/作用域链
+
+>分析执行环境与作用域
+
+分析：
+* 创建 `one()` 执行环境，压栈
+* 调用 `two()` ，创建 `tow()` 执行环境，压栈
+* 调用 `three()` ，创建 `three()` 执行环境，压栈
+* `three()` 执行完成，出栈，继续执行 `tow()` 
+* `two()` 执行完成，出栈，继续执行 `one()` 
+* `one()` 执行完成，出栈
+
+```js
+// 执行环境
+function one() {
+  console.log('one');
+  two();
+  console.log('tow()出栈‘)
+};
+
+function two() {
+  console.log('创建two()的执行环境，并压栈');
+  three();
+  console.log('two');
+};
+
+function three() {
+  console.log('创建three()的执行环境，并压栈‘);
+  console.log('three')
+}
+
+one();
+
+// 作用域
+function person(){
+  let type = 'person'
+
+  function man() {
+    let name = 'Tom';
+    console.log(type); // 可以访问person的变量
+  };
+
+  function woman() {
+    let height = 170;
+    console.log(type); // 可以访问person的变量
+    console.log(name); // 会报错，因为无法访问到man的变量
+  };
+
+  man();
+  woman();
+}
+
+person();
+```
+
+总结：js在执行到函数时，会创建执行环境，执行环境中保存着变量对象和作用域链，作用域链中保存着当前函数可以访问到的所有变量对象，所以当一个函数自身未定义某个变量时，会沿着作用域链查找，当查找到需要的变量时立即停止查找，如果知道查找到全局执行环境还未查询到改变了则会返回未定义。
+
+[拓展: 下面函数的打印顺序](./JS笔试题.md)
 
 
 
