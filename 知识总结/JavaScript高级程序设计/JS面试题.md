@@ -32,7 +32,7 @@ w.document // 打印出http://qq.com的dom结构
 
 ### 使用window.name来进行跨域
 * window.name可以存储不超过2M的数据，数据格式按需自定义。
-* 浏览器的每个tab窗口关闭之前，加载不同的网页window.name不会改变，如果a.html外边了window.name，再加载b.html后且不改变window.name，window.name仍然为a.
+* 浏览器的每个tab窗口关闭之前，加载不同的网页window.name不会改变，如果a.html改变了window.name，再加载b.html后且不改变window.name，window.name仍然为a.
 [示例代码](../example/006-使用window.name跨域.html)
 
 ```js
