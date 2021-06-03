@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>防抖debounce</title>
+</head>
+<style>
+    .box1 {
+        width: 100vw;
+        height: 100px;
+        background: #999999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+</style>
+<body>
+    <div>
+        <div>防抖函数 停止触发 n 秒后执行</div>
+        <div id="box1" class="box1">1</div>
+
+        <div>防抖函数 立刻执行函数，然后等到停止触发 n 秒后，才可以重新触发执行</div>
+        <div id="box2" class="box1">1</div>
+    </div>
+</body>
+<script>
+    let count_1 = 1
+    let count_2 = 1
+    const el_1 = document.getElementById('box1')
+    const el_2 = document.getElementById('box2')
+
+    // 防抖函数 停止触发 n 秒后执行
+    function getUserAction_1(e) {
+        console.log(e)
+        el_1.innerHTML = count_1++
+    }
+    el_1.onmousemove = debounce_1(getUserAction_1, 1000)
+    function debounce_1(fun, wait) {
+        let timer
+        return function() {
+            const context = this
+            let args = arguments
+            clearTimeout(timer)
+            timer = setTimeout(() => {
+                fun.apply(context, args)
+            }, wait)
+        }
+    }
+
+    // 防抖函数，立即出发，停止 n 秒后才能再次触发
+    function getUserAction_2(e) {
+        console.log('getUserAction_2', e)
+        el_2.innerHTML = count_2++
+    }
+
+    el_2.onmousemove = debounce(getUserAction_2, 1000, true)
+
+    function debounce_2(fun, wait) {
+        let immediate = true
+        let timer = null
+
+        return function () {
+            const context = this
+            if (timer) {
+                clearTimeout(timer)
+            }
+            if (immediate) {
+                fun.apply(context, arguments)
+                immediate = false
+                timer = setTimeout(() => {
+                    immediate = true
+                }, wait)
+            }
+        }
+    }
+
+    function debounce(fun, wait, immediate) {
+        let timer
+        return function() {
+            const context = this
+            if (timer) {
+                clearTimeout(timer)
+            }
+            if (immediate) {
+                let callNow = !timer
+                timer = setTimeout(() => {
+                    timer = null;
+                }, wait)
+                if (callNow) {
+                    fun.apply(context, arguments)
+                }
+            } else {
+                timer = setTimeout(() => {
+                    fun.apply(context, arguments)
+                }, wait)
+            }
+        }
+    }
+
+</script>
+</html>
