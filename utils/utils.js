@@ -44,7 +44,7 @@ export function debounce(func, wait= 1000, immediate= false) {
  * @param {object} options
  * @param {boolean} options.leading - true 立即执行
  * @param {boolean} options.trailing - true 停止后是否执行
- * @returns {throttled}
+ * @returns {function(): *}
  */
 export function throttle(func, wait, options = { leading: true, trailing: true }) {
       let context

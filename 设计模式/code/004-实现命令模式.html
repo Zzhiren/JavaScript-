@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>命令模式</title>
+</head>
+<body>
+<p>面向对象实现命令模式</p>
+<button id="execute">打开电视机</button>
+<button id="undo">关闭电视机</button>
+
+<p>闭包实现命令模式</p>
+<button id="execute1">打开电视机</button>
+<button id="undo1">关闭电视机</button>
+
+<script>
+  (function () {
+    // 面向对象方式实现命令模式
+    const TV = {
+      open: function () {
+        console.log('打开电视机！')
+      },
+      close: function () {
+        console.log('关闭电视机！')
+      }
+    }
+
+    const OpenTVCommand = function (receiver) {
+      this.receiver = receiver
+    }
+
+    OpenTVCommand.prototype.execute = function () {
+      this.receiver.open()
+    }
+
+    OpenTVCommand.prototype.undo = function () {
+      this.receiver.close()
+    }
+
+    const setCommand = function (command) {
+      document.getElementById('execute').onclick = function () {
+        command.execute()
+      }
+      document.getElementById('undo').onclick = function () {
+        command.undo()
+      }
+    }
+
+    setCommand(new OpenTVCommand(TV))
+  })()
+
+</script>
+
+<script>
+  (function () {
+    // 闭包实现命令模式
+    const TV = {
+      open: function () {
+        console.log('打开电视机！')
+      },
+      close: function () {
+        console.log('关闭电视机！')
+      }
+    }
+
+    function createCommand(receiver) {
+      let execute = function () {
+        receiver.open()
+      }
+
+      let undo = function () {
+        receiver.close()
+      }
+
+      return {
+        execute,
+        undo
+      }
+    }
+
+    const setCommand = function (command) {
+      document.getElementById('execute1').onclick = function () {
+        command.execute()
+      }
+      document.getElementById('undo1').onclick = function () {
+        command.undo()
+      }
+    }
+
+    setCommand(createCommand(TV))
+  })()
+</script>
+</body>
+</html>

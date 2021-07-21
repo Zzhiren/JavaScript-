@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>原生实现元素自由拖动</title>
+</head>
+<style>
+    .box {
+        width: 100%;
+        height: 300px;
+        background: #999999;
+        border: 1px solid #404040;
+    }
+
+    .draggable {
+        width: 60px;
+        height: 40px;
+        background: #0088f5;
+        position: absolute;
+    }
+</style>
+<body>
+<div
+  id="drag_1"
+  draggable="true"
+  class="draggable">
+  可以拖动
+</div>
+<div class="box">
+
+</div>
+<script src="./v1.js"></script>
+</body>
+</html>
